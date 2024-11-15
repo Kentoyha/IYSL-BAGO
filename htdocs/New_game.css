@@ -1,0 +1,46 @@
+input[type="text"], input[type="date"], input[type="time"], input[type="location"], input[type="Hscore"] {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid #4CAF50; /* Green color for a sporty vibe */
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus, input[type="date"]:focus, input[type="time"]:focus, input[type="location"]:focus, input[type="date"]:focus {
+    border-color: #1E90FF; 
+    box-shadow: 0 0 5px rgba(30, 144, 255, 0.5); 
+}
+
+input[type="text"]::placeholder, input[type="date"]::placeholder, input[type="time"]::placeholder, input[type="location"]::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+button {
+    background-color: #4CAF50; /* Matches input border */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button:hover {
+    background-color: #3E8E41; /* Darker green on hover */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 500px; /* Adjust the max-width as needed */
+    padding: 20px;
+    border: 2px solid #4CAF50; /* Optional: border to match the inputs */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for depth */
+}

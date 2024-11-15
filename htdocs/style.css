@@ -1,0 +1,77 @@
+/* Reset default margin and padding */
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: aliceblue;
+}
+
+h1{
+    text-align:center ;
+    font-size: 3rem;
+    font-weight:700 ;
+    color:#133E87;
+    margin-bottom:5px ;
+}
+
+/* Styling for the navigation bar */
+nav {
+    background-color: #133E87;
+    padding: 10px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    width: 100vw; /* Ensure nav takes up the full width of the viewport */
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center; /* Center the navigation items */
+   
+}
+
+/* Styling for the unordered list inside the navigation */
+nav ul {
+    list-style-type: none;
+    display: flex; /* Arrange items in a row */
+    padding: 0;
+    margin: 0;
+}
+
+/* Styling for each navigation item */
+nav li {
+    margin: 0 20px; /* Space between links */
+}
+
+/* Styling for the anchor links */
+nav a {
+    color: #F3F3E0;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 12px 20px;
+    transition: color 0.3s, background-color 0.3s, transform 0.3s;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+/* Hover effect for navigation links */
+nav a:hover {
+    color: #ff9800;
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+/* Active state styling for navigation links */
+nav a:active {
+    transform: scale(1.05);
+}
+
+/* Responsive design for navigation on smaller screens */
+@media screen and (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center; /* Center the items vertically */
+    }
+
+    nav li {
+        margin: 10px 0;
+    }
+}
