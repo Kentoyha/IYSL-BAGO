@@ -38,13 +38,62 @@ include("db_connect.php");
                 <td> Manager's Middle Name </td>
                 <td> <input type="text" name="Manager_middlename" > </td>
             </tr>
-
+            <tr>
+            <td>
+            <form method="post" enctype="multipart/form-data">
+             <label for="caption">Image Name</label><br>
+            <input type="text" name="caption"><br><br>
+            <label for="upload">Select file: </label><br>
+            <input type="file" name="upload"><br><br>
+            <span>Maximum of 1mb only</span><br>
+                
+             </tr>
+             </td>
             <tr>
                 <td colspan="2">
                     <button type="submit" name="Insert"> Submit</button>
                 </td>
             </tr>
     </form>
+    <?php
+    if(isset($_POST['Insert'])) {
+            echo "<pre>";
+                print_r($_FILES['upload']);
+            echo "</pre>";
+
+            // Declare variables for processing text-based data.
+            $caption = trim($_POST['caption']);
+
+
+            // Simplifying $_FILES['upload'] into a local variable
+            $filename = $_FILES['upload']['name'];
+            $filetype = $_FILES['upload']['type'];
+            $tmp_name = $_FILES['upload']['tmp_name'];
+            $filesize = $_FILES['upload']['size'];
+
+            // File validation and processing
+            $allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png']; // .jpg, .jpeg, .png
+            $maxFileSizeLimit = 1 * 1024 * 1024; // 1mb
+
+            if(!in_array($filetype, $allowedFileTypes)) {
+                echo "<script> alert('Uploaded file not in allowed list'); </script>";
+            }
+
+            if($filesize > $maxFileSizeLimit) {
+                echo "<script> alert('Uploaded file exceeds the allowed limit.'); </script>";
+            }
+
+            // Move the quarantined file to the folder
+            $upload_path = "uploads/" . basename($filename);
+            
+            $sql = "INSERT INTO Teams (caption, filepath, filename) VALUES ('$caption', '$upload_path')";
+
+            if(mysqli_query($conn, $sql)) {
+                move_uploaded_file($tmp_name, $upload_path);
+                echo "<script> alert('File is uploaded with caption'); window.location='Insert_team.php'; </script>";
+            }
+        }
+    ?>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -99,7 +148,7 @@ include("db_connect.php");
             background-color: #45a049;
         }
     </style>
-
+     
     <?php
         if(isset($_POST['Insert'])) {
            

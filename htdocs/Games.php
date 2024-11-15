@@ -33,7 +33,7 @@ include("db_connect.php");
             <th>Home score</th>
             <th>Away score</th>
             <th>Winner</th>
-            <th>Action</th>
+
         </tr>
         <?php
         
@@ -81,8 +81,6 @@ include("db_connect.php");
             echo "<td>Draw</td>";
         }
         
-        echo "<td> <a class='actdelete' href='Games.php?action=delete&Game_id={$result['Game_id']}'>Delete</a>" . "</td>";
-        echo "</tr>";
     }
     
     ?>
