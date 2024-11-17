@@ -79,22 +79,23 @@
             </tr>
         </thead>
         <tbody>
-            <?php 
-                $sql = "SELECT * FROM Players ORDER BY Last_name ASC";
-                $query = mysqli_query($conn, $sql);
-                if (!$query) {
-                    echo "<tr><td colspan='4'>Error: " . $sql . "<br>" . mysqli_error($conn) . "</td></tr>";
-                } else {
-                    while ($result = mysqli_fetch_assoc($query)) {
-                        echo "<tr>";
-                        echo "<td>{$result['Last_name']}, {$result['First_name']} {$result['Middle_name']}</td>";
-                        echo "<td>" . date("F d, Y", strtotime($result['Date_of_birth'])) . "</td>";
-                        echo "<td>{$result['Email']}</td>";
-                        echo "<td>{$result['Contact_number']}</td>";
-                        echo "</tr>";
-                    }
-                }
-            ?>
+        <?php 
+        $sql = "SELECT * FROM Players ORDER BY Last_name ASC";
+        $query = mysqli_query($conn, $sql);
+        if (!$query) {
+            echo "<tr><td colspan='4'>Error: " . $sql . "<br>" . mysqli_error($conn) . "</td></tr>";
+        } else {
+            while ($result = mysqli_fetch_assoc($query)) {
+                $player_id = $result['id']; // Assuming 'id' is the primary key in your Players table
+                echo "<tr>";
+                echo "<td><a href='player_details.php?id=$player_id'>{$result['Last_name']}, {$result['First_name']} {$result['Middle_name']}</a></td>";
+                echo "<td>" . date("F d, Y", strtotime($result['Date_of_birth'])) . "</td>";
+                echo "<td>{$result['Email']}</td>";
+                echo "<td>{$result['Contact_number']}</td>";
+                echo "</tr>";
+            }
+        }
+    ?>
         </tbody>
     </table>
 </body>

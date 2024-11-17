@@ -39,58 +39,69 @@ include("db_connect.php");
                 <td> <input type="text" name="Manager_middlename" > </td>
             </tr>
             <tr>
-            <td>
             <form method="post" enctype="multipart/form-data">
-             <label for="caption">Image Name</label><br>
-            <input type="text" name="caption"><br><br>
-            <label for="upload">Select file: </label><br>
-            <input type="file" name="upload"><br><br>
-            <span>Maximum of 1mb only</span><br>
-                
-             </tr>
-             </td>
+            <label for="upload_file">Choose a file to upload:</label><br>
+            <input type="file" name="file_upload" id="upload_file"> <br>
+            Maximum of 1mb per file<br>
+            </form>
+            </tr>
             <tr>
                 <td colspan="2">
                     <button type="submit" name="Insert"> Submit</button>
                 </td>
             </tr>
     </form>
-    <?php
-    if(isset($_POST['Insert'])) {
+    <?php 
+        if(isset($_POST['Insert'])) {
             echo "<pre>";
-                print_r($_FILES['upload']);
+            print_r($_FILES);
             echo "</pre>";
 
-            // Declare variables for processing text-based data.
-            $caption = trim($_POST['caption']);
+            /*
+                Traditional Version:
+                $_FILES['file_upload']['name']
+                $_FILES['file_upload']['type']
+                $_FILES['file_upload']['tmp_name']
+                $_FILES['file_upload']['size']
 
+                Simplified Version:
+                $filename = $_FILES['file_upload']['name'];
+                $filetype = $_FILES['file_upload']['type'];
+                $tmpname = $_FILES['file_upload']['tmp_name'];
+                $filesize = $_FILES['file_upload']['size'];
 
-            // Simplifying $_FILES['upload'] into a local variable
-            $filename = $_FILES['upload']['name'];
-            $filetype = $_FILES['upload']['type'];
-            $tmp_name = $_FILES['upload']['tmp_name'];
-            $filesize = $_FILES['upload']['size'];
+                Standard Version:
+                $file_upload = $_FILES['file_upload'];
+                $file_upload['name'];
+                $file_upload['type'];
+                $file_upload['tmp_name'];
+                $file_upload['size'];
+            */
 
-            // File validation and processing
-            $allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png']; // .jpg, .jpeg, .png
-            $maxFileSizeLimit = 1 * 1024 * 1024; // 1mb
-
-            if(!in_array($filetype, $allowedFileTypes)) {
-                echo "<script> alert('Uploaded file not in allowed list'); </script>";
-            }
-
-            if($filesize > $maxFileSizeLimit) {
-                echo "<script> alert('Uploaded file exceeds the allowed limit.'); </script>";
-            }
-
-            // Move the quarantined file to the folder
-            $upload_path = "uploads/" . basename($filename);
+            $filename = $_FILES['file_upload']['name'];
+            $filetype = $_FILES['file_upload']['type'];
+            $tmpname = $_FILES['file_upload']['tmp_name'];
+            $filesize = $_FILES['file_upload']['size'];
             
-            $sql = "INSERT INTO Teams (caption, filepath, filename) VALUES ('$caption', '$upload_path')";
+            //Allowed File Types to be processed.
+            $allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/tiff'];
+            if(!in_array($filetype, $allowedFileTypes)) {
+                echo "<script> alert('File type does not match to the allowed types'); window.location='upload_form.php'; </script>";
+                exit();
+            }
 
+            $maximumFileSize = 1 * 1024 * 1024; //impose a 1mb limit on every file upload
+            if($filesize > $maximumFileSize) {
+                echo "<script> alert('File only accepts 1mb only.'); window.location='upload_form.php'; </script>";
+                exit();
+            }
+            $modifiedFilename = uniqid()."_".time()."_".uniqid()."_".$filename;
+            $uploadPath = "uploads/" . basename($modifiedFilename);
+            move_uploaded_file($tmpname, $uploadPath);
+
+            $sql = "INSERT INTO Teams (file_name1, file_1path) VALUES ('$filename', '$uploadPath')";
             if(mysqli_query($conn, $sql)) {
-                move_uploaded_file($tmp_name, $upload_path);
-                echo "<script> alert('File is uploaded with caption'); window.location='Insert_team.php'; </script>";
+                echo "<script> alert('Image file uploaded'); window.location='gallery.php'; </script>";
             }
         }
     ?>
