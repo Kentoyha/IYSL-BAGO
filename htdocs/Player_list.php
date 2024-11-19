@@ -88,7 +88,7 @@
             while ($result = mysqli_fetch_assoc($query)) {
                 $player_id = $result['id']; // Assuming 'id' is the primary key in your Players table
                 echo "<tr>";
-                echo "<td><a href='player_details.php?id=$player_id'>{$result['Last_name']}, {$result['First_name']} {$result['Middle_name']}</a></td>";
+                echo "<td><a href='players_info.php?id=$player_id'>{$result['Last_name']}, {$result['First_name']} {$result['Middle_name']}</a></td>";
                 echo "<td>" . date("F d, Y", strtotime($result['Date_of_birth'])) . "</td>";
                 echo "<td>{$result['Email']}</td>";
                 echo "<td>{$result['Contact_number']}</td>";
