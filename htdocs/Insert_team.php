@@ -39,11 +39,8 @@ include("db_connect.php");
                 <td> <input type="text" name="Manager_middlename" > </td>
             </tr>
             <tr>
-            <form method="post" enctype="multipart/form-data">
-            <label for="upload_file">Choose a file to upload:</label><br>
-            <input type="file" name="file_upload" id="upload_file"> <br>
-            Maximum of 1mb per file<br>
-            </form>
+            <td>Upload Image (Max 2MB)</td>
+                <td><input type="file" name="file_upload" required></td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -51,60 +48,7 @@ include("db_connect.php");
                 </td>
             </tr>
     </form>
-    <?php 
-        if(isset($_POST['Insert'])) {
-            echo "<pre>";
-            print_r($_FILES);
-            echo "</pre>";
-
-            /*
-                Traditional Version:
-                $_FILES['file_upload']['name']
-                $_FILES['file_upload']['type']
-                $_FILES['file_upload']['tmp_name']
-                $_FILES['file_upload']['size']
-
-                Simplified Version:
-                $filename = $_FILES['file_upload']['name'];
-                $filetype = $_FILES['file_upload']['type'];
-                $tmpname = $_FILES['file_upload']['tmp_name'];
-                $filesize = $_FILES['file_upload']['size'];
-
-                Standard Version:
-                $file_upload = $_FILES['file_upload'];
-                $file_upload['name'];
-                $file_upload['type'];
-                $file_upload['tmp_name'];
-                $file_upload['size'];
-            */
-
-            $filename = $_FILES['file_upload']['name'];
-            $filetype = $_FILES['file_upload']['type'];
-            $tmpname = $_FILES['file_upload']['tmp_name'];
-            $filesize = $_FILES['file_upload']['size'];
-            
-            //Allowed File Types to be processed.
-            $allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/tiff'];
-            if(!in_array($filetype, $allowedFileTypes)) {
-                echo "<script> alert('File type does not match to the allowed types'); window.location='upload_form.php'; </script>";
-                exit();
-            }
-
-            $maximumFileSize = 1 * 1024 * 1024; //impose a 1mb limit on every file upload
-            if($filesize > $maximumFileSize) {
-                echo "<script> alert('File only accepts 1mb only.'); window.location='upload_form.php'; </script>";
-                exit();
-            }
-            $modifiedFilename = uniqid()."_".time()."_".uniqid()."_".$filename;
-            $uploadPath = "uploads/" . basename($modifiedFilename);
-            move_uploaded_file($tmpname, $uploadPath);
-
-            $sql = "INSERT INTO Teams (file_name1, file_1path) VALUES ('$filename', '$uploadPath')";
-            if(mysqli_query($conn, $sql)) {
-                echo "<script> alert('Image file uploaded'); window.location='gallery.php'; </script>";
-            }
-        }
-    ?>
+   
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -162,6 +106,7 @@ include("db_connect.php");
      
     <?php
         if(isset($_POST['Insert'])) {
+            
            
             $team_name = $_POST['team_name'];
             $city = $_POST['city'];

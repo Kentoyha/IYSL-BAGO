@@ -72,6 +72,7 @@
     <table class="player-table" border="1" align="center" cellspacing="0" cellpadding="10">
         <thead>
             <tr>
+                <th>Player Image</th>
                 <th>Full Name</th>
                 <th>Date of Birth</th>
                 <th>Email</th>
@@ -88,6 +89,7 @@
             while ($result = mysqli_fetch_assoc($query)) {
                 $player_id = $result['id']; // Assuming 'id' is the primary key in your Players table
                 echo "<tr>";
+                echo "<td style='text-align: center;'><img src='images/{$result['playerimage']}' width='25' height='25' style='border-radius: 50%;'></td>";
                 echo "<td><a href='players_info.php?id=$player_id'>{$result['Last_name']}, {$result['First_name']} {$result['Middle_name']}</a></td>";
                 echo "<td>" . date("F d, Y", strtotime($result['Date_of_birth'])) . "</td>";
                 echo "<td>{$result['Email']}</td>";

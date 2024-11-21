@@ -40,7 +40,6 @@ include("header.php");
          } else {
              while($result = mysqli_fetch_assoc($query)) {
                  echo "<tr>";
-                
                  echo "<td><a href='team_players.php?team_id=" . $result["Team_id"] . "' style='text-decoration: none;'>" . $result["Team_name"] . "</a></td>";
                  echo "<td>" . $result["City"] . "</td>";
                  echo "<td>" . $result["Manager_Lastname"] . ", " . $result["Manager_Firstname"] . " " . $result["Manager_Middlename"] . "</td>";

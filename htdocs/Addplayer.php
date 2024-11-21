@@ -13,21 +13,10 @@ include("header.php");
 
 <h1> REGISTER A PLAYER </h1>
 <hr>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <table border=1 align="center" cellspacing="0" cellpadding="10">
 
-            <tr>
-                <td> Date of Birth </td>
-                <td> <input type="date" name="Birthday" required> </td>
-            </tr>
-            <tr>
-                <td> Email </td>
-                <td> <input type="text" name="email" required> </td>
-            </tr>
-            <tr>
-                <td> Contact Number </td>
-                <td> <input type="number" name="Contact" required> </td>
-            </tr>
+            
             <tr>
                 <td>Last Name </td>
                 <td> <input type="text" name="Lname" required> </td>
@@ -39,6 +28,23 @@ include("header.php");
             <tr>
                 <td>Middle Name </td>
                 <td> <input type="text" name="Mname" > </td>
+            </tr>
+            <tr>
+                <td>Image</td>
+                <td><input type="file" name="upload">
+
+            </tr>
+            <tr>
+                <td> Date of Birth </td>
+                <td> <input type="date" name="Birthday" required> </td>
+            </tr>
+            <tr>
+                <td> Email </td>
+                <td> <input type="text" name="email" required> </td>
+            </tr>
+            <tr>
+                <td> Contact Number </td>
+                <td> <input type="number" name="Contact" required> </td>
             </tr>
             <tr>
                 <td>Team </td>
@@ -69,6 +75,42 @@ include("header.php");
         </table>
     </form>
     
+    <?php
+        if(isset($_POST['Insert1'])) {
+            echo "<pre>";
+                print_r($_FILES['upload']);
+            echo "</pre>";
+
+            
+           
+            $filename = $_FILES['upload']['name'];
+            $filetype = $_FILES['upload']['type'];
+            $tmp_name = $_FILES['upload']['tmp_name'];
+            $filesize = $_FILES['upload']['size'];
+
+           
+            $allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png']; 
+            $maxFileSizeLimit = 1 * 1024 * 1024; 
+
+            if(!in_array($filetype, $allowedFileTypes)) {
+                echo "<script> alert('Uploaded file not in allowed list'); </script>";
+            }
+
+            if($filesize > $maxFileSizeLimit) {
+                echo "<script> alert('Uploaded file exceeds the allowed limit.'); </script>";
+            }
+
+           
+            $upload_path = "uploads/" . basename($filename);
+            
+            $sql = "INSERT INTO uploads (filepath) VALUES ('$upload_path')";
+
+            if(mysqli_query($conn, $sql)) {
+                move_uploaded_file($tmp_name, $upload_path);
+                echo "<script> alert('File is uploaded with caption'); window.location='display-uploads.php'; </script>";
+            }
+        }
+    ?>
   
 
     
