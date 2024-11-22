@@ -1,5 +1,6 @@
 <?php
 include "db_connect.php";
+include "menu.php";
 ?>
 
 
@@ -11,12 +12,6 @@ include "db_connect.php";
     <title>Document</title>
 </head>
 <body>
-    <?php 
-    include "menu.php";
-    include "header.php";
-    
-    ?>
-    
     <?php 
         $team_id = trim($_GET['team_id']);
         $team = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM Team WHERE Team_id = '$team_id'"));

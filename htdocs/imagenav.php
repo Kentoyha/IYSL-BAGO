@@ -1,4 +1,12 @@
-
+<nav>
+    <ul>
+        <li><a href="GoldenStateThunders.php">Golden State Thunders</a></li>
+        <li><a href="LosAngelesKupals">Los Angeles Kupals</a></li>
+        <li><a href="CleavelandKicks">Cleaveland Kicks</a></li>
+        <li><a href="SanAntonioCrows">San Antonio Crows</a></li>
+       
+    <ul>
+</nav>
 <style>
       * {
     margin: 0;
