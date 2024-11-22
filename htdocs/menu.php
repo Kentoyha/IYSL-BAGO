@@ -6,6 +6,7 @@
         <li><a href="Player_list.php">View Players</a></li>
         <li><a href="Games.php">Games</a></li>
         <li><a href="playerpic.php">Player Images</a></li>
+        <li><a href="index.php">test</a></li>
     <ul>
 </nav>
 
