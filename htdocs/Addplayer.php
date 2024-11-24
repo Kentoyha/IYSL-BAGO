@@ -75,21 +75,27 @@ include("header.php");
         </table>
     </form>
     
+</body>
+    
+    
+   </html>
     <?php
-        if(isset($_POST['Insert1'])) {
-            echo "<pre>";
-                print_r($_FILES['upload']);
-            echo "</pre>";
+    
+    
+    if(isset($_POST['Insert1'])) {
+        $Birthday = $_POST['Birthday'];
+        $Email = $_POST['email'];
+        $Contact_number = $_POST['Contact'];
+        $Last_name = $_POST['Lname'];
+        $First_name = $_POST['Fname'];
+        $Middle_name = $_POST['Mname'];
+        $Team_id = $_POST['Team'];
+        $filename = $_FILES['upload']['name'];
+        $filetype = $_FILES['upload']['type'];
+        $tmp_name = $_FILES['upload']['tmp_name'];
+        $filesize = $_FILES['upload']['size'];
 
-            
-           
-            $filename = $_FILES['upload']['name'];
-            $filetype = $_FILES['upload']['type'];
-            $tmp_name = $_FILES['upload']['tmp_name'];
-            $filesize = $_FILES['upload']['size'];
-
-           
-            $allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png']; 
+        $allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png']; 
             $maxFileSizeLimit = 1 * 1024 * 1024; 
 
             if(!in_array($filetype, $allowedFileTypes)) {
@@ -109,24 +115,8 @@ include("header.php");
                 move_uploaded_file($tmp_name, $upload_path);
                 echo "<script> alert('File is uploaded with caption'); window.location='display-uploads.php'; </script>";
             }
-        }
-    ?>
-  
 
-    
-    
-   </html>
-    <?php
-    
-    
-    if(isset($_POST['Insert1'])) {
-        $Birthday = $_POST['Birthday'];
-        $Email = $_POST['email'];
-        $Contact_number = $_POST['Contact'];
-        $Last_name = $_POST['Lname'];
-        $First_name = $_POST['Fname'];
-        $Middle_name = $_POST['Mname'];
-        $Team_id = $_POST['Team'];
+        
     
 
     //     $sql = "SELECT * FROM Players WHERE Player_id = '$player_id'";
@@ -137,8 +127,8 @@ include("header.php");
     //         echo "<script> alert('Player already exists'); </script>";
     //     } 
     // else {
-            $sql = "INSERT INTO Players (Date_of_birth, Email, Contact_number , Last_name , First_name , Middle_name , Team_id)
-             VALUES ('$Birthday', '$Email', '$Contact_number', '$Last_name' , '$First_name' , '$Middle_name' , '$Team_id')";
+            $sql = "INSERT INTO Players (Date_of_birth, Email, Contact_number , Last_name , First_name , Middle_name , filepath , Team_id)
+             VALUES ('$Birthday', '$Email', '$Contact_number', '$Last_name' , '$First_name' , '$Middle_name' , '$Team_id' , '$upload_path')";
             $query = mysqli_query($conn, $sql);
         if($query)  {
                 echo "<script> alert('Player is successfully registered'); window.location='Player_list.php';</script>";

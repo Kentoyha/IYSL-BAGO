@@ -77,6 +77,10 @@
                 <td><input type="text" name="last_name" id="last_name" value="<?php echo htmlspecialchars($player['Last_name']); ?>" required></td>
             </tr>
             <tr>
+                <td><label for="upload">Contact Number:</label></td>
+                <td><input type="text" name="upload" id="contact_number" value="<?php echo htmlspecialchars($player['Contact_number']); ?>" required></td>
+            </tr>
+            <tr>
                 <td><label for="date_of_birth">Date of Birth:</label></td>
                 <td><input type="date" name="date_of_birth" id="date_of_birth" value="<?php echo htmlspecialchars($player['Date_of_birth']); ?>" required></td>
             </tr>
